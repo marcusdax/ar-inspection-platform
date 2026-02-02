@@ -1,0 +1,295 @@
+{
+  "name": "ar-inspection-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest --passWithNoTests --coverage",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --coverageReporters=lcov,text",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "react-native clean",
+    "clean:android": "cd android && ./gradlew clean",
+    "clean:ios": "cd ios && xcodebuild clean",
+    "build:android:debug": "cd android && ./gradlew assembleDebug",
+    "build:android:release": "cd android && ./gradlew assembleRelease",
+    "build:android:staging": "cd android && ./gradlew assembleStaging",
+    "build:ios:debug": "cd ios && xcodebuild -workspace ar-inspection-app.xcworkspace -scheme ar-inspection-app -configuration Debug -destination generic/platform=iOS -archivePath build/ar-inspection-app.xcarchive archive",
+    "build:ios:release": "cd ios && xcodebuild -workspace ar-inspection-app.xcworkspace -scheme ar-inspection-app -configuration Release -destination generic/platform=iOS -archivePath build/ar-inspection-app.xcarchive archive",
+    "build:web:dev": "NODE_ENV=development REACT_APP_ENV=development webpack serve --config webpack.config.js",
+    "build:web:staging": "NODE_ENV=staging REACT_APP_ENV=staging webpack --config webpack.config.js",
+    "build:web:prod": "NODE_ENV=production REACT_APP_ENV=production webpack --config webpack.config.js",
+    "deploy:dev": "./scripts/deploy.sh all development",
+    "deploy:staging": "./scripts/deploy.sh all staging",
+    "deploy:prod": "./scripts/deploy.sh all production",
+    "deploy:ios": "./scripts/deploy.sh ios",
+    "deploy:android": "./scripts/deploy.sh android",
+    "deploy:web": "./scripts/deploy.sh web",
+    "postinstall": "cd ios && pod install && cd .. && cd android && ./gradlew build",
+    "pre-commit": "lint-staged",
+    "pre-push": "npm run test && npm run type-check",
+    "bundle:android": "cd android && ./gradlew bundleRelease",
+    "bundle:ios": "cd ios && xcodebuild -exportArchive -archivePath build/ar-inspection-app.xcarchive -exportPath build -exportOptionsPlist ExportOptions.plist",
+    "codesign:ios": "cd ios && xcrun codesign --force --sign \"iPhone Distribution\" --entitlements ar-inspection-app/ar-inspection-app.entitlements build/ar-inspection-app.ipa",
+    "optimize:images": "imagemin src/assets/images/* --out-dir=src/assets/optimized --plugin=mozjpeg --plugin=pngquant",
+    "analyze:bundle": "npx @bundle-analyzer/cli dist/main.bundle.js",
+    "performance:monitor": "node scripts/performance-monitor.js",
+    "generate:types": "tsc --declaration --emitDeclarationOnly --outDir types",
+    "docs:generate": "typedoc src --out docs",
+    "storybook": "start-storybook -p 6006",
+    "storybook:build": "build-storybook -o docs/storybook",
+    "e2e:android": "detox test --configuration android.emu.debug",
+    "e2e:ios": "detox test --configuration ios.sim.debug",
+    "e2e:build:android": "detox build --configuration android.emu.release",
+    "e2e:build:ios": "detox build --configuration ios.sim.release"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.72.6",
+    "react-native-web": "^0.19.6",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/stack": "^6.3.20",
+    "@react-navigation/bottom-tabs": "^6.5.11",
+    "@react-navigation/drawer": "^6.6.6",
+    "@react-native-async-storage/async-storage": "^1.19.5",
+    "@react-native-firebase/app": "^18.6.1",
+    "@react-native-firebase/analytics": "^18.6.1",
+    "@react-native-firebase/crashlytics": "^18.6.1",
+    "@react-native-firebase/performance": "^18.6.1",
+    "react-native-camera": "^4.2.1",
+    "react-native-video": "^5.2.1",
+    "react-native-webrtc": "^111.0.1",
+    "react-native-vision-camera": "^3.0.0",
+    "react-native-ar-kit": "^2.2.0",
+    "react-native-ar-core": "^1.5.0",
+    "react-native-biometrics": "^3.0.1",
+    "react-native-keychain": "^8.1.2",
+    "react-native-sensors": "^7.3.6",
+    "react-native-permissions": "^3.9.3",
+    "react-native-background-job": "^0.2.8",
+    "react-native-foreground-service": "^4.1.1",
+    "react-native-push-notification": "^8.1.1",
+    "react-native-share": "^9.4.1",
+    "react-native-screenshot": "^1.2.0",
+    "react-native-image-picker": "^5.6.0",
+    "react-native-fast-image": "^8.6.3",
+    "react-native-svg": "^13.14.0",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-reanimated": "^3.5.4",
+    "react-native-gesture-handler": "^2.13.4",
+    "react-native-safe-area-context": "^4.7.4",
+    "react-native-screens": "^3.27.0",
+    "react-native-mmkv": "^2.10.2",
+    "react-native-device-info": "^10.11.0",
+    "react-native-network-info": "^5.2.1",
+    "react-native-battery": "^4.1.0",
+    "react-native-camera-roll": "^5.9.1",
+    "react-native-filesystem": "^2.20.0",
+    "react-native-zip-archive": "^6.0.1",
+    "react-native-sqlite-storage": "^6.0.1",
+    "react-native-webview": "^13.6.4",
+    "react-native-ota-updates": "^5.2.0",
+    "react-native-debugger": "^2.1.0",
+    "react-native-flipper": "^0.189.0",
+    "flipper-plugin-firebase": "^1.1.2",
+    "flipper-plugin-react-native-bluetooth": "^0.8.0",
+    "three": "^0.158.0",
+    "@react-three/fiber": "^8.15.12",
+    "@react-three/drei": "^9.88.17",
+    "crypto-js": "^4.1.1",
+    "lodash": "^4.17.21",
+    "axios": "^1.6.2",
+    "socket.io-client": "^4.7.4",
+    "winston": "^3.11.0",
+    "react-query": "^3.39.3",
+    "zustand": "^4.4.7",
+    "react-hook-form": "^7.48.2",
+    "yup": "^1.4.0",
+    "date-fns": "^2.30.0",
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.6",
+    "react-native-localize": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.22.15",
+    "@types/react": "^18.2.42",
+    "@types/react-native": "^0.72.6",
+    "@types/crypto-js": "^4.1.3",
+    "@types/lodash": "^4.14.202",
+    "@types/jest": "^29.5.8",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-native": "^4.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "prettier": "^3.1.0",
+    "jest": "^29.7.0",
+    "react-native-testing-library": "^12.4.2",
+    "@testing-library/react-native": "^12.4.2",
+    "@testing-library/jest-native": "^5.4.3",
+    "detox": "^20.13.5",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "@react-native-community/flipper": "^0.19.0",
+    "react-native-flipper": "^0.189.0",
+    "flipper-plugin-redux-debugger": "^0.8.6",
+    "@storybook/react-native": "^6.1.0",
+    "@storybook/addon-actions": "^7.5.3",
+    "@storybook/addon-docs": "^7.5.3",
+    "@storybook/addon-controls": "^7.5.3",
+    "@storybook/addon-backgrounds": "^7.5.3",
+    "@storybook/addon-viewport": "^7.5.3",
+    "typedoc": "^0.25.4",
+    "lint-staged": "^15.2.0",
+    "husky": "^8.0.3",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2",
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "@bundle-analyzer/webpack-plugin": "^0.11.0",
+    "compression-webpack-plugin": "^10.0.0",
+    "terser-webpack-plugin": "^5.3.9",
+    "mini-css-extract-plugin": "^2.7.6",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "postcss": "^8.4.32",
+    "autoprefixer": "^10.4.16",
+    "tailwindcss": "^3.3.6",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "@react-native/metro-config": "^0.72.11",
+    "react-native-svg-transformer": "^1.1.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-plugin-import": "^1.13.8"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect",
+      "<rootDir>/src/__tests__/setup.ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/__tests__/**/*",
+      "!src/**/*.d.ts",
+      "!src/**/*.stories.{js,jsx,ts,tsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|@react-native|react-native-*)"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "@react-native-community",
+      "@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "react",
+      "react-hooks",
+      "react-native"
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/explicit-function-return-type": "warn",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react-native/no-unused-styles": "error",
+      "react-native/split-platform-components": "error",
+      "react-native/no-inline-styles": "warn",
+      "react-native/no-color-literals": "warn"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "src/**/*.{json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test && npm run type-check"
+    }
+  },
+  "detox": {
+    "configurations": {
+      "android.emu.debug": {
+        "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+        "build": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug",
+        "type": "android.emulator",
+        "device": {
+          "avdName": "Pixel_4_API_30"
+        }
+      },
+      "android.emu.release": {
+        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+        "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release",
+        "type": "android.emulator",
+        "device": {
+          "avdName": "Pixel_4_API_30"
+        }
+      },
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/ar-inspection-app.app",
+        "build": "cd ios && xcodebuild -workspace ar-inspection-app.xcworkspace -scheme ar-inspection-app -configuration Debug -sdk iphonesimulator -derivedDataPath build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 14"
+        }
+      },
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/ar-inspection-app.app",
+        "build": "cd ios && xcodebuild -workspace ar-inspection-app.xcworkspace -scheme ar-inspection-app -configuration Release -sdk iphonesimulator -derivedDataPath build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 14"
+        }
+      }
+    },
+    "test-runner": "jest",
+    "runner-config": "e2e/config.json"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "volta": {
+    "node": "18.19.0",
+    "npm": "9.2.0"
+  }
+}

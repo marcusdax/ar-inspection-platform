@@ -1,0 +1,164 @@
+{
+  "development": {
+    "name": "Development",
+    "description": "Development environment with debug features enabled",
+    "api": {
+      "baseURL": "https://api-dev.arinspection.com",
+      "timeout": 30000,
+      "retryAttempts": 3
+    },
+    "websocket": {
+      "url": "wss://ws-dev.arinspection.com",
+      "reconnectInterval": 5000,
+      "maxReconnectAttempts": 10
+    },
+    "cdn": {
+      "baseURL": "https://cdn-dev.arinspection.com",
+      "cachePolicy": "no-cache"
+    },
+    "analytics": {
+      "enabled": false,
+      "endpoint": "https://analytics-dev.arinspection.com",
+      "sampleRate": 1.0
+    },
+    "crashReporting": {
+      "enabled": false,
+      "endpoint": "https://crash-dev.arinspection.com"
+    },
+    "performance": {
+      "enabled": false,
+      "samplingInterval": 10000,
+      "metricsEndpoint": "https://perf-dev.arinspection.com"
+    },
+    "security": {
+      "encryptionEnabled": false,
+      "biometricAuth": false,
+      "twoFactorAuth": false,
+      "hipaaCompliance": false,
+      "sessionTimeout": 3600000
+    },
+    "features": {
+      "debugMode": true,
+      "logging": true,
+      "hotReload": true,
+      "mockData": true,
+      "advanced_ar_features": true,
+      "beta_ui": true,
+      "enhanced_security": false
+    },
+    "build": {
+      "optimization": false,
+      "minification": false,
+      "sourcemaps": true,
+      "treeShaking": false
+    }
+  },
+  "staging": {
+    "name": "Staging",
+    "description": "Staging environment for testing before production",
+    "api": {
+      "baseURL": "https://api-staging.arinspection.com",
+      "timeout": 20000,
+      "retryAttempts": 3
+    },
+    "websocket": {
+      "url": "wss://ws-staging.arinspection.com",
+      "reconnectInterval": 3000,
+      "maxReconnectAttempts": 5
+    },
+    "cdn": {
+      "baseURL": "https://cdn-staging.arinspection.com",
+      "cachePolicy": "cache-first"
+    },
+    "analytics": {
+      "enabled": true,
+      "endpoint": "https://analytics-staging.arinspection.com",
+      "sampleRate": 0.1
+    },
+    "crashReporting": {
+      "enabled": true,
+      "endpoint": "https://crash-staging.arinspection.com"
+    },
+    "performance": {
+      "enabled": true,
+      "samplingInterval": 30000,
+      "metricsEndpoint": "https://perf-staging.arinspection.com"
+    },
+    "security": {
+      "encryptionEnabled": true,
+      "biometricAuth": true,
+      "twoFactorAuth": true,
+      "hipaaCompliance": false,
+      "sessionTimeout": 1800000
+    },
+    "features": {
+      "debugMode": false,
+      "logging": true,
+      "hotReload": false,
+      "mockData": false,
+      "advanced_ar_features": true,
+      "beta_ui": false,
+      "enhanced_security": true
+    },
+    "build": {
+      "optimization": true,
+      "minification": true,
+      "sourcemaps": true,
+      "treeShaking": true
+    }
+  },
+  "production": {
+    "name": "Production",
+    "description": "Production environment for live users",
+    "api": {
+      "baseURL": "https://api.arinspection.com",
+      "timeout": 15000,
+      "retryAttempts": 2
+    },
+    "websocket": {
+      "url": "wss://ws.arinspection.com",
+      "reconnectInterval": 2000,
+      "maxReconnectAttempts": 3
+    },
+    "cdn": {
+      "baseURL": "https://cdn.arinspection.com",
+      "cachePolicy": "cache-first"
+    },
+    "analytics": {
+      "enabled": true,
+      "endpoint": "https://analytics.arinspection.com",
+      "sampleRate": 0.01
+    },
+    "crashReporting": {
+      "enabled": true,
+      "endpoint": "https://crash.arinspection.com"
+    },
+    "performance": {
+      "enabled": true,
+      "samplingInterval": 60000,
+      "metricsEndpoint": "https://perf.arinspection.com"
+    },
+    "security": {
+      "encryptionEnabled": true,
+      "biometricAuth": true,
+      "twoFactorAuth": true,
+      "hipaaCompliance": true,
+      "sessionTimeout": 900000
+    },
+    "features": {
+      "debugMode": false,
+      "logging": false,
+      "hotReload": false,
+      "mockData": false,
+      "advanced_ar_features": true,
+      "beta_ui": false,
+      "enhanced_security": true
+    },
+    "build": {
+      "optimization": true,
+      "minification": true,
+      "sourcemaps": false,
+      "treeShaking": true
+    }
+  }
+}

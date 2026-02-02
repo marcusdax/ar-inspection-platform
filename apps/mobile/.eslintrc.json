@@ -1,0 +1,121 @@
+{
+  "root": true,
+  "extends": [
+    "@react-native-community",
+    "@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "react-native",
+    "import",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "@typescript-eslint/prefer-optional-chain": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/no-floating-promises": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react-native/no-unused-styles": "error",
+    "react-native/split-platform-components": "error",
+    "react-native/no-inline-styles": "warn",
+    "react-native/no-color-literals": "warn",
+    "react-native/no-single-element-style-arrays": "error",
+    "react-native/no-raw-text": "warn",
+    "react-native/no-inline-styles": "warn",
+    "react/no-unescaped-entities": "error",
+    "react/no-children-prop": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-deprecated": "error",
+    "react/no-did-update-set-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-is-mounted": "error",
+    "react/no-render-return-value": "error",
+    "react/no-string-refs": "error",
+    "react/no-unstable-nested-components": "error",
+    "react/no-unknown-property": "error",
+    "react/require-render-return": "error",
+    "react/self-closing-comp": "error",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-unresolved": "error",
+    "import/no-duplicates": "error",
+    "jsx-a11y/alt-text": "warn",
+    "jsx-a11y/aria-role": "error",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-autofocus": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn"
+  },
+  "env": {
+    "react-native/react-native": true,
+    "jest": true,
+    "detox/detox": true
+  },
+  "overrides": [
+    {
+      "files": ["*.test.{ts,tsx,js,jsx}", "*.spec.{ts,tsx,js,jsx}"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "react-native/no-color-literals": "off",
+        "react-native/no-raw-text": "off"
+      }
+    },
+    {
+      "files": ["*.stories.{ts,tsx,js,jsx}"],
+      "rules": {
+        "import/no-default-export": "off",
+        "react-native/no-color-literals": "off",
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
+}

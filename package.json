@@ -1,0 +1,54 @@
+{
+  "name": "ar-inspection-platform",
+  "version": "1.0.0",
+  "description": "Smartphone-Centric AR Inspection System with Real-Time Video Streaming and Annotation",
+  "private": true,
+  "workspaces": [
+    "mobile-app",
+    "web-client",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:web\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:web": "cd web-client && npm run dev",
+    "build": "npm run build:shared && npm run build:backend && npm run build:web",
+    "build:shared": "cd shared && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build:web": "cd web-client && npm run build",
+    "test": "npm run test --workspaces",
+    "test:backend": "cd backend && npm test",
+    "test:web": "cd web-client && npm test",
+    "lint": "npm run lint --workspaces",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:web": "cd web-client && npm run lint",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "db:reset": "docker-compose down -v && docker-compose up -d",
+    "setup": "npm install && npm run docker:up",
+    "seed:dev": "cd backend && npm run seed:dev",
+    "clean": "npm run clean && docker system prune -f"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "ar",
+    "inspection",
+    "webrtc",
+    "react-native",
+    "react",
+    "nodejs",
+    "postgresql",
+    "mongodb"
+  ],
+  "author": "AR Inspection Team",
+  "license": "MIT"
+}
