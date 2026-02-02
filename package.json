@@ -1,54 +1,135 @@
 {
   "name": "ar-inspection-platform",
+  "displayName": "AR Inspection Platform",
+  "description": "Enterprise-grade Augmented Reality inspection platform with real-time collaboration and HIPAA compliance",
   "version": "1.0.0",
-  "description": "Smartphone-Centric AR Inspection System with Real-Time Video Streaming and Annotation",
   "private": true,
   "workspaces": [
-    "mobile-app",
-    "web-client",
+    "apps/mobile",
+    "apps/web",
     "backend",
     "shared"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:web\"",
-    "dev:backend": "cd backend && npm run dev",
-    "dev:web": "cd web-client && npm run dev",
-    "build": "npm run build:shared && npm run build:backend && npm run build:web",
-    "build:shared": "cd shared && npm run build",
+    "install:all": "npm install && npm run install:shared && npm run install:mobile && npm run install:backend && npm run install:web",
+    "install:shared": "cd shared && npm install",
+    "install:mobile": "cd apps/mobile && npm install",
+    "install:backend": "cd backend && npm install",
+    "install:web": "cd apps/web && npm install",
+    "start:all": "concurrently \"npm run start:backend\" \"npm run start:mobile\" \"npm run start:web\"",
+    "start:backend": "cd backend && npm start",
+    "start:mobile": "cd apps/mobile && npm start",
+    "start:web": "cd apps/web && npm start",
+    "build:all": "npm run build:mobile && npm run build:web && npm run build:backend",
+    "build:mobile": "cd apps/mobile && npm run build:android:release && npm run build:ios:release && npm run build:web:prod",
+    "build:web": "cd apps/web && npm run build",
     "build:backend": "cd backend && npm run build",
-    "build:web": "cd web-client && npm run build",
-    "test": "npm run test --workspaces",
+    "test:all": "npm run test:mobile && npm run test:backend && npm run test:web",
+    "test:mobile": "cd apps/mobile && npm test",
     "test:backend": "cd backend && npm test",
-    "test:web": "cd web-client && npm test",
-    "lint": "npm run lint --workspaces",
+    "test:web": "cd apps/web && npm test",
+    "test:coverage": "npm run test:coverage:mobile && npm run test:coverage:backend && npm run test:coverage:web",
+    "test:coverage:mobile": "cd apps/mobile && npm run test:coverage",
+    "test:coverage:backend": "cd backend && npm run test:coverage",
+    "test:coverage:web": "cd apps/web && npm run test:coverage",
+    "lint:all": "npm run lint:mobile && npm run lint:backend && npm run lint:web",
+    "lint:mobile": "cd apps/mobile && npm run lint",
     "lint:backend": "cd backend && npm run lint",
-    "lint:web": "cd web-client && npm run lint",
-    "docker:up": "docker-compose up -d",
+    "lint:web": "cd apps/web && npm run lint",
+    "lint:fix": "npm run lint:fix:mobile && npm run lint:fix:backend && npm run lint:fix:web",
+    "lint:fix:mobile": "cd apps/mobile && npm run lint:fix",
+    "lint:fix:backend": "cd backend && npm run lint:fix",
+    "lint:fix:web": "cd apps/web && npm run lint:fix",
+    "type-check:all": "npm run type-check:mobile && npm run type-check:backend && npm run type-check:web",
+    "type-check:mobile": "cd apps/mobile && npm run type-check",
+    "type-check:backend": "cd backend && npm run type-check",
+    "type-check:web": "cd apps/web && npm run type-check",
+    "clean:all": "npm run clean:mobile && npm run clean:backend && npm run clean:web",
+    "clean:mobile": "cd apps/mobile && npm run clean",
+    "clean:backend": "cd backend && npm run clean",
+    "clean:web": "cd apps/web && npm run clean",
+    "docker:dev": "docker-compose up -d",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
     "docker:down": "docker-compose down",
-    "docker:logs": "docker-compose logs -f",
-    "db:reset": "docker-compose down -v && docker-compose up -d",
-    "setup": "npm install && npm run docker:up",
-    "seed:dev": "cd backend && npm run seed:dev",
-    "clean": "npm run clean && docker system prune -f"
+    "docker:build": "docker-compose build",
+    "docker:build:prod": "docker-compose -f docker-compose.prod.yml build",
+    "deploy:dev": "cd apps/mobile && npm run deploy:dev",
+    "deploy:staging": "cd apps/mobile && npm run deploy:staging",
+    "deploy:prod": "cd apps/mobile && npm run deploy:prod",
+    "e2e:mobile": "cd apps/mobile && npm run e2e:android && npm run e2e:ios",
+    "docs:generate": "npm run docs:mobile && npm run docs:backend && npm run docs:web",
+    "docs:mobile": "cd apps/mobile && npm run docs:generate",
+    "docs:backend": "cd backend && npm run docs:generate",
+    "docs:web": "cd apps/web && npm run docs:generate",
+    "setup:dev": "chmod +x setup-dev.sh && ./setup-dev.sh",
+    "analyze:bundle": "cd apps/mobile && npm run analyze:bundle",
+    "performance:test": "cd apps/mobile && npm run performance:monitor"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "typescript": "^5.4.5"
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "volta": {
+    "node": "18.19.0",
+    "npm": "9.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/ar-inspection-platform.git"
   },
   "keywords": [
+    "augmented-reality",
     "ar",
     "inspection",
-    "webrtc",
     "react-native",
-    "react",
-    "nodejs",
-    "postgresql",
-    "mongodb"
+    "typescript",
+    "enterprise",
+    "healthcare",
+    "manufacturing",
+    "quality-control",
+    "web3d",
+    "arkit",
+    "arcore",
+    "webxr",
+    "collaboration",
+    "video-streaming",
+    "webrtc",
+    "encryption",
+    "hipaa",
+    "gdpr",
+    "biometric",
+    "two-factor-authentication",
+    "performance-monitoring",
+    "business-analytics",
+    "ci-cd",
+    "feature-flags"
   ],
-  "author": "AR Inspection Team",
-  "license": "MIT"
+  "author": "AR Inspection Platform Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-org/ar-inspection-platform/issues"
+  },
+  "homepage": "https://github.com/your-org/ar-inspection-platform#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint:all && npm run type-check:all"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
 }
